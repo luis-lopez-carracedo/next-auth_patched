@@ -7,6 +7,7 @@ import type { AuthorizationParameters } from "openid-client"
 import type { InternalOptions } from "../../types"
 import type { RequestInternal } from "../.."
 import type { Cookie } from "../cookie"
+import {useNonce, createNonce} from "./nonce-handler"
 
 /**
  *
@@ -61,7 +62,11 @@ export default async function getAuthorizationUrl({
     authorizationParams.state = state.value
     cookies.push(state.cookie)
   }
-
+  const nonce = await (createNonce)(options);      
+  if (nonce) {
+    authorizationParams.nonce = nonce.value;
+    cookies.push(nonce.cookie);
+  }
   const pkce = await createPKCE(options)
   if (pkce) {
     authorizationParams.code_challenge = pkce.code_challenge

@@ -63,6 +63,17 @@ export function defaultCookies(useSecureCookies: boolean): CookiesOptions {
         sameSite: "lax",
         path: "/",
         secure: useSecureCookies,
+        
+      },
+      
+    },
+    nonce :{
+      name: `${cookiePrefix}next-auth.nonce`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: useSecureCookies,
       },
     },
     callbackUrl: {
@@ -103,6 +114,7 @@ export function defaultCookies(useSecureCookies: boolean): CookiesOptions {
         secure: useSecureCookies,
       },
     },
+    
   }
 }
 
